@@ -1,0 +1,286 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f5f5f5;
+  --color-zinc-200: #e5e5e5;
+  --color-zinc-300: #d4d4d4;
+  --color-zinc-400: #a3a3a3;
+  --color-zinc-500: #737373;
+  --color-zinc-600: #525252;
+  --color-zinc-700: #404040;
+  --color-zinc-800: #262626;
+  --color-zinc-900: #171717;
+  --color-zinc-950: #0a0a0a;
+
+  --color-accent: var(--color-green-600);
+  --color-accent-content: var(--color-green-600);
+  --color-accent-foreground: var(--color-white);
+}
+
+@layer theme {
+  .dark {
+    --color-accent: var(--color-green-600);
+    --color-accent-content: var(--color-green-400);
+    --color-accent-foreground: var(--color-white);
+  }
+}
+
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+  @apply grid gap-2;
+}
+
+[data-flux-label] {
+  @apply  !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+  @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+}
+
+.campaign-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e5e7eb;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+  transition: width 0.5s ease;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.payment-method {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payment-method:hover {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+}
+
+.payment-method.active {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+  border-width: 2px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.step-indicator {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.step-indicator.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.step-indicator.completed {
+  background-color: #10b981;
+  color: white;
+}
+
+.dialog {
+  display: none;
+  @apply  max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden;
+}
+
+.dialog.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.image-upload {
+  width: 100%;
+  text-align: center;
+  @apply grid grid-cols-2 md:grid-cols-3 gap-3 text-center cursor-pointer;
+}
+
+.image-upload input[type="file"] {
+  position: fixed;
+  opacity: 0;
+  width: 0;
+}
+
+fieldset.radio-cards {
+  @apply grid; 
+}
+
+label.radio-card {
+  width: 100%;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+input[type="radio"].radio-card {
+  position: fixed;
+  opacity: 0;
+  width: 0;
+  &:checked {
+    + .radio-card {
+      border: 2px solid var(--color-accent);
+      background-color: #f0fdf4;
+    }
+  }
+}
+
+input[type="radio"].radio-card + .radio-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+input[type="radio"].radio-card + .radio-card:hover {
+  border: 1px solid var(--color-accent);
+  background-color: #f0fdf4;
+}
+
+input[type="radio"].radio-card:checked + .radio-card:hover {
+  border: 3px solid var(--color-accent);
+}
+
+.button-group {
+  width: 100%;
+  text-align: center;
+  @apply grid;
+}
+
+.button-group label {
+  @apply bg-white border border-gray-300 font-medium hover:bg-gray-100;
+}
+
+.button-group input[type="radio"] {
+  position: fixed;
+  opacity: 0;
+  width: 0;
+  &:checked {
+    + label {
+      color: var(--color-accent-foreground);
+      background-color: var(--color-accent);
+    }
+  }
+  &:focus {
+    + label {
+      color: var(--color-accent-foreground);
+      background-color: var(--color-accent);
+    }
+  }
+}
+
+/* \[:where(&)\]:size-4 {
+    @apply size-4;
+} */
